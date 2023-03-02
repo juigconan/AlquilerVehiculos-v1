@@ -99,7 +99,7 @@ public class Consola {
 
 	public static Turismo leerTurismoMatricula() {
 		Turismo turismo = null;
-		turismo = Turismo.getTurismoConMatricula(leerCadena("la matricula del turismo:"));
+		turismo = Turismo.getVehiculoConMatricula(leerCadena("la matricula del turismo:"));
 		return turismo;
 
 	}

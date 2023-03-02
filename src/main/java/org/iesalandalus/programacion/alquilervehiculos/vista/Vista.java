@@ -5,7 +5,7 @@ import javax.naming.OperationNotSupportedException;
 import org.iesalandalus.programacion.alquilervehiculos.controlador.Controlador;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Alquiler;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Cliente;
-import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Turismo;
+import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Vehiculo;
 
 public class Vista {
 
@@ -158,8 +158,8 @@ public class Vista {
 
 	private void buscarTurismo() {
 		Consola.mostrarCabecera("Insertar turismo");
-		Turismo turismoABuscar = Consola.leerTurismoMatricula();
-		Turismo turismo = null;
+		Vehiculo turismoABuscar = Consola.leerTurismoMatricula();
+		Vehiculo turismo = null;
 		try {
 			turismo = controlador.buscar(turismoABuscar);
 		} catch (IllegalArgumentException | NullPointerException e) {
@@ -248,7 +248,7 @@ public class Vista {
 	private void listarTurismos() {
 		Consola.mostrarCabecera("Listado de turismos");
 		StringBuilder listado = new StringBuilder();
-		for (Turismo turismo : controlador.getTurismos()) {
+		for (Vehiculo turismo : controlador.getTurismos()) {
 			listado.append(turismo).append(System.getProperty("line.separator"));
 		}
 		System.out.println(listado.isEmpty() ? "No existe ningún turismo." : listado);
@@ -283,7 +283,7 @@ public class Vista {
 	private void listarAlquileresTurismo() {
 		Consola.mostrarCabecera("Listado de alquileres del turismo");
 		StringBuilder listado = new StringBuilder();
-		Turismo turismoABuscar = null;
+		Vehiculo turismoABuscar = null;
 		try {
 			turismoABuscar = Consola.leerTurismoMatricula();
 		} catch (Exception e) {

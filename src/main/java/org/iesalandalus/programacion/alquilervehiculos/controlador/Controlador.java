@@ -9,6 +9,7 @@ import org.iesalandalus.programacion.alquilervehiculos.modelo.Modelo;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Alquiler;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Cliente;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Turismo;
+import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Vehiculo;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.negocio.Alquileres;
 import org.iesalandalus.programacion.alquilervehiculos.vista.Vista;
 
@@ -58,7 +59,7 @@ public class Controlador {
 
 	}
 
-	public Turismo buscar(Turismo turismo) {
+	public Vehiculo buscar(Vehiculo turismo) {
 		return modelo.buscar(turismo);
 
 	}
@@ -84,7 +85,7 @@ public class Controlador {
 		modelo.borrar(cliente);
 	}
 
-	public void borrarTurismo(Turismo turismo) throws OperationNotSupportedException {
+	public void borrarTurismo(Vehiculo turismo) throws OperationNotSupportedException {
 		modelo.borrar(turismo);
 	}
 
@@ -108,7 +109,7 @@ public class Controlador {
 		return modelo.getAlquileres(cliente);
 	}
 
-	public List<Alquiler> getAlquileresTurismo(Turismo turismo) {
+	public List<Alquiler> getAlquileresTurismo(Vehiculo turismo) {
 		return modelo.getAlquileres(turismo);
 	}
 

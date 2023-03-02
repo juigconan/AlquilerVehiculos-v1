@@ -2,13 +2,14 @@ package org.iesalandalus.programacion.alquilervehiculos.modelo.negocio;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.naming.OperationNotSupportedException;
 
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Alquiler;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Cliente;
-import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Turismo;
+import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Vehiculo;
 
 public class Alquileres {
 
@@ -32,10 +33,10 @@ public class Alquileres {
 		return alquileresCliente;
 	}
 
-	public List<Alquiler> get(Turismo turismo) {
+	public List<Alquiler> get(Vehiculo turismo) {
 		List<Alquiler> alquileresTurismo = new ArrayList<>();
 		for (Alquiler alquiler : coleccionAlquileres) {
-			if (turismo.equals(alquiler.getTurismo())) {
+			if (turismo.equals(alquiler.getVehiculo())) {
 				alquileresTurismo.add(alquiler);
 			}
 		}
@@ -46,27 +47,27 @@ public class Alquileres {
 		return coleccionAlquileres.size();
 	}
 
-	private void comprobarAlquiler(Cliente cliente, Turismo turismo, LocalDate fechaAlquiler)
+	private void comprobarAlquiler(Cliente cliente, Vehiculo turismo, LocalDate fechaAlquiler)
 			throws OperationNotSupportedException {
 
 		for (Alquiler alquiler : coleccionAlquileres) {
 			LocalDate fechaDevolucion = alquiler.getFechaDevolucion();
 			Cliente esteCliente = alquiler.getCliente();
-			Turismo esteTurismo = alquiler.getTurismo();
+			Vehiculo esteVehiculo = alquiler.getVehiculo();
 			if (fechaDevolucion == null) {
 				if (esteCliente.equals(cliente)) {
 					throw new OperationNotSupportedException("ERROR: El cliente tiene otro alquiler sin devolver.");
 				}
-				if (esteTurismo.equals(turismo)) {
-					throw new OperationNotSupportedException("ERROR: El turismo está actualmente alquilado.");
+				if (esteVehiculo.equals(turismo)) {
+					throw new OperationNotSupportedException("ERROR: El vehículo está actualmente alquilado.");
 				}
 				// Si la fecha de devolución no es anterior, asi nos ahorramos una comprobación
 			} else if (!fechaDevolucion.isBefore(fechaAlquiler)) {
 				if (esteCliente.equals(cliente)) {
 					throw new OperationNotSupportedException("ERROR: El cliente tiene un alquiler posterior.");
 				}
-				if (esteTurismo.equals(turismo)) {
-					throw new OperationNotSupportedException("ERROR: El turismo tiene un alquiler posterior.");
+				if (esteVehiculo.equals(turismo)) {
+					throw new OperationNotSupportedException("ERROR: El vehículo tiene un alquiler posterior.");
 				}
 			}
 
@@ -74,11 +75,35 @@ public class Alquileres {
 
 	}
 
-	public void devolver(Alquiler alquiler, LocalDate fechaDevolucion) throws OperationNotSupportedException {
-		if (alquiler == null) {
+	public void devolver(Cliente cliente, LocalDate fechaDevolucion) throws OperationNotSupportedException {
+		if (cliente == null) {
 			throw new NullPointerException("ERROR: No se puede devolver un alquiler nulo.");
 		}
-		if (buscar(alquiler) == null) {
+		Alquiler alquiler = getAlquilerAbierto(cliente);
+		if (alquiler == null) {
+			throw new OperationNotSupportedException("ERROR: No existe ningún alquiler igual.");
+		}
+
+		coleccionAlquileres.get(coleccionAlquileres.indexOf(alquiler)).devolver(fechaDevolucion);
+	}
+
+	private Alquiler getAlquilerAbierto(Cliente cliente) {
+		Alquiler alquilerADevolver = null;
+		Iterator<Alquiler> iterador = coleccionAlquileres.iterator();
+		while (alquilerADevolver == null && iterador.hasNext()) {
+			Alquiler alquiler = iterador.next();
+			if (alquiler.getCliente().equals(cliente) && alquiler.getFechaDevolucion() == null) {
+				alquilerADevolver = alquiler;
+			}
+		}
+		return alquilerADevolver;
+	}
+
+	public void devolver(Vehiculo vehiculo, LocalDate fechaDevolucion) throws OperationNotSupportedException {
+		if (vehiculo == null) {
+			throw new NullPointerException("ERROR: No se puede devolver un alquiler nulo.");
+		}
+		if (buscar(cliente) == null) {
 			throw new OperationNotSupportedException("ERROR: No existe ningún alquiler igual.");
 		}
 		coleccionAlquileres.get(coleccionAlquileres.indexOf(alquiler)).devolver(fechaDevolucion);
@@ -88,7 +113,7 @@ public class Alquileres {
 		if (alquiler == null) {
 			throw new NullPointerException("ERROR: No se puede insertar un alquiler nulo.");
 		}
-		comprobarAlquiler(alquiler.getCliente(), alquiler.getTurismo(), alquiler.getFechaAlquiler());
+		comprobarAlquiler(alquiler.getCliente(), alquiler.getVehiculo(), alquiler.getFechaAlquiler());
 		coleccionAlquileres.add(alquiler);
 	}
 

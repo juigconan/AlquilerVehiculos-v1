@@ -9,6 +9,7 @@ import javax.naming.OperationNotSupportedException;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Alquiler;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Cliente;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Turismo;
+import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Vehiculo;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.negocio.Alquileres;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.negocio.Clientes;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.negocio.Turismos;
@@ -43,7 +44,7 @@ public class Modelo {
 			throw new NullPointerException("ERROR: No se puede realizar un alquiler nulo.");
 		}
 		Cliente cliente = clientes.buscar(alquiler.getCliente());
-		Turismo turismo = turismos.buscar(alquiler.getTurismo());
+		Turismo turismo = turismos.buscar(alquiler.getVehiculo());
 		if (cliente == null) {
 			throw new OperationNotSupportedException("ERROR: No existe el cliente del alquiler.");
 		}
@@ -62,7 +63,7 @@ public class Modelo {
 		return new Alquiler(alquileres.buscar(alquiler));
 	}
 
-	public Turismo buscar(Turismo turismo) {
+	public Vehiculo buscar(Vehiculo turismo) {
 		return new Turismo(turismos.buscar(turismo));
 	}
 
@@ -89,7 +90,7 @@ public class Modelo {
 		clientes.borrar(cliente);
 	}
 
-	public void borrar(Turismo turismo) throws OperationNotSupportedException {
+	public void borrar(Vehiculo turismo) throws OperationNotSupportedException {
 		for (Alquiler alquiler : alquileres.get(turismo)) {
 			alquileres.borrar(alquiler);
 		}
@@ -132,7 +133,7 @@ public class Modelo {
 		return listaADevolver;
 	}
 
-	public List<Alquiler> getAlquileres(Turismo turismo) {
+	public List<Alquiler> getAlquileres(Vehiculo turismo) {
 		List<Alquiler> listaADevolver = new ArrayList<>();
 		for (Alquiler alquiler : alquileres.get(turismo)) {
 			listaADevolver.add(new Alquiler(alquiler));
