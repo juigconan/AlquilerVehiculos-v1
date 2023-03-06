@@ -36,7 +36,7 @@ public class Controlador {
 		modelo.comenzar();
 		vista.comenzar();
 	}
-	
+
 	public void terminar() {
 		modelo.terminar();
 		vista.terminar();
@@ -75,9 +75,13 @@ public class Controlador {
 
 	}
 
-	public void devolverAlquiler(Alquiler leerAlquiler, LocalDate fechaDevolucion)
-			throws OperationNotSupportedException {
-		modelo.devolver(leerAlquiler, fechaDevolucion);
+	public void devolverAlquiler(Cliente cliente, LocalDate fechaDevolucion) throws OperationNotSupportedException {
+		modelo.devolver(cliente, fechaDevolucion);
+
+	}
+
+	public void devolverAlquiler(Vehiculo vehiculo, LocalDate fechaDevolucion) throws OperationNotSupportedException {
+		modelo.devolver(vehiculo, fechaDevolucion);
 
 	}
 
@@ -94,23 +98,23 @@ public class Controlador {
 	}
 
 	public List<Cliente> getClientes() {
-		return modelo.getClientes();
+		return modelo.getListaClientes();
 	}
 
 	public List<Turismo> getTurismos() {
-		return modelo.getTurismos();
+		return modelo.getListaVehiculos();
 	}
 
 	public List<Alquiler> getAlquileres() {
-		return modelo.getAlquileres();
+		return modelo.getListaAlquileres();
 	}
 
 	public List<Alquiler> getAlquileresCliente(Cliente cliente) {
-		return modelo.getAlquileres(cliente);
+		return modelo.getListaAlquileres(cliente);
 	}
 
 	public List<Alquiler> getAlquileresTurismo(Vehiculo turismo) {
-		return modelo.getAlquileres(turismo);
+		return modelo.getListaAlquileres(turismo);
 	}
 
 }
