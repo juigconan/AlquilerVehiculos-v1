@@ -6,11 +6,11 @@ import org.iesalandalus.programacion.alquilervehiculos.modelo.negocio.memoria.Fu
 public enum FactoriaFuenteDatos {
 	MEMORIA {
 		@Override
-		IFuenteDatos crear() {
+		public IFuenteDatos crear() {
 			return new FuenteDatosMemoria();
 		}
 	};
 	
-	abstract IFuenteDatos crear();
+	public abstract IFuenteDatos crear();
 
 }

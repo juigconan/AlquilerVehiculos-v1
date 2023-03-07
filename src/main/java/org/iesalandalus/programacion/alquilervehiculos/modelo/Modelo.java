@@ -46,37 +46,37 @@ public abstract class Modelo {
 		System.out.println("El modelo ha terminado.");
 	}
 
-	abstract void insertar(Cliente cliente) throws OperationNotSupportedException;
+	public abstract void insertar(Cliente cliente) throws OperationNotSupportedException;
 	
-	abstract void insertar(Vehiculo vehiculo) throws OperationNotSupportedException;
+	public abstract void insertar(Vehiculo vehiculo) throws OperationNotSupportedException;
 
-	abstract void insertar(Alquiler alquiler) throws OperationNotSupportedException;
+	public abstract void insertar(Alquiler alquiler) throws OperationNotSupportedException;
 
-	abstract Cliente buscar(Cliente cliente);
+	public abstract Cliente buscar(Cliente cliente);
 
-	abstract Alquiler buscar(Alquiler alquiler);
+	public abstract Alquiler buscar(Alquiler alquiler);
 
-	abstract Vehiculo buscar(Vehiculo vehiculo);
+	public abstract Vehiculo buscar(Vehiculo vehiculo);
 
-	abstract void modificar(Cliente cliente, String nombre, String telefono) throws OperationNotSupportedException;
+	public abstract void modificar(Cliente cliente, String nombre, String telefono) throws OperationNotSupportedException;
 
-	abstract void devolver(Cliente cliente, LocalDate fechaDevolucion) throws OperationNotSupportedException;
+	public abstract void devolver(Cliente cliente, LocalDate fechaDevolucion) throws OperationNotSupportedException;
 	
-	abstract void devolver(Vehiculo vehiculo, LocalDate fechaDevolucion) throws OperationNotSupportedException;
+	public abstract void devolver(Vehiculo vehiculo, LocalDate fechaDevolucion) throws OperationNotSupportedException;
 
-	abstract void borrar(Cliente cliente) throws OperationNotSupportedException;
+	public abstract void borrar(Cliente cliente) throws OperationNotSupportedException;
 
-	abstract void borrar(Vehiculo vehiculo) throws OperationNotSupportedException;
+	public abstract void borrar(Vehiculo vehiculo) throws OperationNotSupportedException;
 
-	abstract void borrar(Alquiler alquiler) throws OperationNotSupportedException;
+	public abstract void borrar(Alquiler alquiler) throws OperationNotSupportedException;
 
-	abstract List<Cliente> getListaClientes();
+	public abstract List<Cliente> getListaClientes();
 
-	abstract List<Vehiculo> getListaVehiculos();
+	public abstract List<Vehiculo> getListaVehiculos();
 
-	abstract List<Alquiler> getListaAlquileres();
+	public abstract List<Alquiler> getListaAlquileres();
 
-	abstract List<Alquiler> getListaAlquileres(Cliente cliente);
+	public abstract List<Alquiler> getListaAlquileres(Cliente cliente);
 
-	abstract List<Alquiler> getListaAlquileres(Vehiculo turismo);
+	public abstract List<Alquiler> getListaAlquileres(Vehiculo turismo);
 }

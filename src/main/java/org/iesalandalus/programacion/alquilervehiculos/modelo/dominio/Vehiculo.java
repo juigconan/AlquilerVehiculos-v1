@@ -39,7 +39,7 @@ public abstract class Vehiculo {
 		return vehiculoADevolver;
 	}
 
-	public static Turismo getVehiculoConMatricula(String matricula) {
+	public static Vehiculo getVehiculoConMatricula(String matricula) {
 		return new Turismo("TurismoFicticio", "ModeloFicticio", 100, matricula);
 	}
 

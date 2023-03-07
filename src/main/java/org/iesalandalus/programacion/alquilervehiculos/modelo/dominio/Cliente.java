@@ -22,9 +22,9 @@ public class Cliente {
 		if (cliente == null) {
 			throw new NullPointerException("ERROR: No es posible copiar un cliente nulo.");
 		}
-		setNombre(cliente.getNombre());
-		setDni(cliente.getDni());
-		setTelefono(cliente.getTelefono());
+		nombre = cliente.getNombre();
+		dni = cliente.getDni();
+		telefono = cliente.getTelefono();
 	}
 
 	public String getNombre() {

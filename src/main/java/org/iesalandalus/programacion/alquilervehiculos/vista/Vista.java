@@ -6,6 +6,8 @@ import org.iesalandalus.programacion.alquilervehiculos.controlador.Controlador;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Alquiler;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Cliente;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Vehiculo;
+import org.iesalandalus.programacion.alquilervehiculos.vista.texto.Accion;
+import org.iesalandalus.programacion.alquilervehiculos.vista.texto.Consola;
 
 public class Vista {
 
@@ -19,100 +21,20 @@ public class Vista {
 	}
 
 	public void comenzar() {
-		Opcion opcion;
+		Accion accion;
 		do {
 			Consola.mostrarCabecera("Menu principal");
 			Consola.mostrarMenu();
-			opcion = Consola.elegirOpcion();
-			ejecutar(opcion);
-		} while (opcion != Opcion.SALIR);
+			accion = Consola.elegirAccion();
+			accion.ejecutar();
+		} while (accion != Accion.SALIR);
 	}
 
 	public void terminar() {
 		System.out.print("¡Gracias por utilizar nuestra aplicacion!");
 	}
 
-	private void ejecutar(Opcion opcion) {
-
-		switch (opcion) {
-		case SALIR: {
-			controlador.terminar();
-			break;
-		}
-		case INSERTAR_CLIENTE: {
-			insertarCliente();
-			break;
-		}
-		case INSERTAR_TURISMO: {
-			insertarTurismo();
-			break;
-		}
-		case INSERTAR_ALQUILER: {
-			insertarAlquiler();
-			break;
-		}
-		case BUSCAR_CLIENTE: {
-			buscarCliente();
-			break;
-		}
-		case BUSCAR_TURISMO: {
-			buscarTurismo();
-			break;
-		}
-		case BUSCAR_ALQUILER: {
-			buscarAlquiler();
-			break;
-		}
-		case MODIFICAR_CLIENTE: {
-			modificarCliente();
-			break;
-		}
-		case DEVOLVER_ALQUILER: {
-			devolverAlquiler();
-			break;
-		}
-		case BORRAR_CLIENTE: {
-			borrarCliente();
-			break;
-		}
-		case BORRAR_TURISMO: {
-			borrarTurismo();
-			break;
-		}
-		case BORRAR_ALQUILER: {
-			borrarAlquiler();
-			break;
-		}
-		case LISTAR_CLIENTES: {
-			listarClientes();
-			break;
-		}
-		case LISTAR_TURISMOS: {
-			listarTurismos();
-			break;
-		}
-		case LISTAR_ALQUILERES: {
-			listarAlquileres();
-			break;
-		}
-		case LISTAR_ALQUILERES_CLIENTE: {
-			listarAlquileresCliente();
-			break;
-		}
-		case LISTAR_ALQUILERES_TURISMO: {
-			listarAlquileresTurismo();
-			break;
-		}
-		default: {
-			// Nunca deberiamos llegar a esta excepción
-			throw new IllegalArgumentException("ERROR: Opción no valida.");
-		}
-
-		}
-
-	}
-
-	private void insertarCliente() {
+	public void insertarCliente() {
 		Consola.mostrarCabecera("Insertar cliente");
 		try {
 			controlador.insertarCliente(Consola.leerCliente());
@@ -122,10 +44,10 @@ public class Vista {
 		}
 	}
 
-	private void insertarTurismo() {
+	public void insertarVehiculo() {
 		Consola.mostrarCabecera("Insertar turismo");
 		try {
-			controlador.insertarTurismo(Consola.leerTurismo());
+			controlador.insertarTurismo(Consola.leerVehiculo());
 			System.out.println("Turismo insertado correctamente.");
 		} catch (OperationNotSupportedException | IllegalArgumentException | NullPointerException e) {
 			System.out.println(e.getMessage());
@@ -133,7 +55,7 @@ public class Vista {
 
 	}
 
-	private void insertarAlquiler() {
+	public void insertarAlquiler() {
 		Consola.mostrarCabecera("Insertar alquiler");
 		try {
 			controlador.insertarAlquiler(Consola.leerAlquiler());
@@ -144,7 +66,7 @@ public class Vista {
 
 	}
 
-	private void buscarCliente() {
+	public void buscarCliente() {
 		Consola.mostrarCabecera("Insertar cliente");
 		Cliente clienteABuscar = Consola.leerClienteDni();
 		Cliente cliente = null;
@@ -156,9 +78,9 @@ public class Vista {
 		System.out.println(cliente != null ? cliente.toString() : "No existe el cliente");
 	}
 
-	private void buscarTurismo() {
+	public void buscarVehiculo() {
 		Consola.mostrarCabecera("Insertar turismo");
-		Vehiculo turismoABuscar = Consola.leerTurismoMatricula();
+		Vehiculo turismoABuscar = Consola.leerVehiculoMatricula();
 		Vehiculo turismo = null;
 		try {
 			turismo = controlador.buscar(turismoABuscar);
@@ -168,7 +90,7 @@ public class Vista {
 		System.out.println(turismo != null ? turismo.toString() : "No existe el turismo");
 	}
 
-	private void buscarAlquiler() {
+	public void buscarAlquiler() {
 		Consola.mostrarCabecera("Insertar alquiler");
 		Alquiler alquilerABuscar = Consola.leerAlquiler();
 		Alquiler alquiler = null;
@@ -180,7 +102,7 @@ public class Vista {
 		System.out.println(alquiler != null ? alquiler.toString() : "No existe el alquiler");
 	}
 
-	private void modificarCliente() {
+	public void modificarCliente() {
 		Consola.mostrarCabecera("Modificar cliente");
 		System.out.println("Inroduce los datos del cliente: ");
 		try {
@@ -194,17 +116,27 @@ public class Vista {
 		}
 	}
 
-	private void devolverAlquiler() {
+	public void devolverAlquilerCliente() {
 		Consola.mostrarCabecera("Devolver alquiler");
 		try {
-			controlador.devolverAlquiler(Consola.leerAlquiler(), Consola.leerFechaDevolucion());
+			controlador.devolverAlquiler(Consola.leerClienteDni(), Consola.leerFechaDevolucion());
+			System.out.println("Alquiler devuelto correctamente.");
+		} catch (OperationNotSupportedException | IllegalArgumentException | NullPointerException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	public void devolverAlquilerVehiculo() {
+		Consola.mostrarCabecera("Devolver alquiler");
+		try {
+			controlador.devolverAlquiler(Consola.leerVehiculoMatricula(), Consola.leerFechaDevolucion());
 			System.out.println("Alquiler devuelto correctamente.");
 		} catch (OperationNotSupportedException | IllegalArgumentException | NullPointerException e) {
 			System.out.println(e.getMessage());
 		}
 	}
 
-	private void borrarCliente() {
+	public void borrarCliente() {
 		Consola.mostrarCabecera("Borrar cliente");
 		try {
 			controlador.borrarCliente(Consola.leerCliente());
@@ -214,17 +146,17 @@ public class Vista {
 		}
 	}
 
-	private void borrarTurismo() {
+	public void borrarVehiculo() {
 		Consola.mostrarCabecera("Borrar turismo");
 		try {
-			controlador.borrarTurismo(Consola.leerTurismo());
+			controlador.borrarTurismo(Consola.leerVehiculo());
 			System.out.println("Turismo borrado correctamente");
 		} catch (OperationNotSupportedException | IllegalArgumentException | NullPointerException e) {
 			System.out.println(e.getMessage());
 		}
 	}
 
-	private void borrarAlquiler() {
+	public void borrarAlquiler() {
 		Consola.mostrarCabecera("Borrar alquiler");
 		try {
 			controlador.borrarAlquiler(Consola.leerAlquiler());
@@ -234,18 +166,16 @@ public class Vista {
 		}
 	}
 
-	private void listarClientes() {
+	public void listarClientes() {
 		Consola.mostrarCabecera("Listado de clientes");
 		StringBuilder listado = new StringBuilder();
 		for (Cliente cliente : controlador.getClientes()) {
-			// El system.getProperty esta mirado de Internet, pero lo que hace es coger el
-			// separador de linea del sistema.
 			listado.append(cliente).append(System.getProperty("line.separator"));
 		}
 		System.out.println(listado.isEmpty() ? "No existe ningún cliente." : listado);
 	}
 
-	private void listarTurismos() {
+	public void listarVehiculos() {
 		Consola.mostrarCabecera("Listado de turismos");
 		StringBuilder listado = new StringBuilder();
 		for (Vehiculo turismo : controlador.getTurismos()) {
@@ -254,7 +184,7 @@ public class Vista {
 		System.out.println(listado.isEmpty() ? "No existe ningún turismo." : listado);
 	}
 
-	private void listarAlquileres() {
+	public void listarAlquileres() {
 		Consola.mostrarCabecera("Listado de alquileres");
 		StringBuilder listado = new StringBuilder();
 		for (Alquiler alquiler : controlador.getAlquileres()) {
@@ -263,7 +193,7 @@ public class Vista {
 		System.out.println(listado.isEmpty() ? "No existe ningún alquiler." : listado);
 	}
 
-	private void listarAlquileresCliente() {
+	public void listarAlquileresCliente() {
 		Consola.mostrarCabecera("Listado de alquileres del cliente");
 		StringBuilder listado = new StringBuilder();
 		Cliente clienteABuscar = null;
@@ -280,12 +210,12 @@ public class Vista {
 
 	}
 
-	private void listarAlquileresTurismo() {
+	public void listarAlquileresVehiculo() {
 		Consola.mostrarCabecera("Listado de alquileres del turismo");
 		StringBuilder listado = new StringBuilder();
 		Vehiculo turismoABuscar = null;
 		try {
-			turismoABuscar = Consola.leerTurismoMatricula();
+			turismoABuscar = Consola.leerVehiculoMatricula();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

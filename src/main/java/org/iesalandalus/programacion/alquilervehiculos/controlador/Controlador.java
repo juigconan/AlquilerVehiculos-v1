@@ -101,7 +101,7 @@ public class Controlador {
 		return modelo.getListaClientes();
 	}
 
-	public List<Turismo> getTurismos() {
+	public List<Vehiculo> getTurismos() {
 		return modelo.getListaVehiculos();
 	}
 

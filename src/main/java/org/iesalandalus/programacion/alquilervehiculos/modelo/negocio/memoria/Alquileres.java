@@ -54,7 +54,6 @@ public class Alquileres implements IAlquileres {
 
 	private void comprobarAlquiler(Cliente cliente, Vehiculo turismo, LocalDate fechaAlquiler)
 			throws OperationNotSupportedException {
-//TODO: Dice turismo en vez de vehiculo
 		for (Alquiler alquiler : coleccionAlquileres) {
 			LocalDate fechaDevolucion = alquiler.getFechaDevolucion();
 			Cliente esteCliente = alquiler.getCliente();
@@ -116,7 +115,7 @@ public class Alquileres implements IAlquileres {
 		}
 		coleccionAlquileres.get(coleccionAlquileres.indexOf(alquiler)).devolver(fechaDevolucion);
 	}
-	
+
 	private Alquiler getAlquilerAbierto(Vehiculo vehiculo) {
 		Alquiler alquilerADevolver = null;
 		Iterator<Alquiler> iterador = coleccionAlquileres.iterator();
@@ -128,7 +127,6 @@ public class Alquileres implements IAlquileres {
 		}
 		return alquilerADevolver;
 	}
-
 
 	@Override
 	public void insertar(Alquiler alquiler) throws OperationNotSupportedException {
