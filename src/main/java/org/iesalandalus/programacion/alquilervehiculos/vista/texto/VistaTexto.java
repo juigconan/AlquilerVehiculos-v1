@@ -1,5 +1,6 @@
 package org.iesalandalus.programacion.alquilervehiculos.vista.texto;
 
+import java.time.Month;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -107,9 +108,9 @@ public class VistaTexto extends Vista {
 
 	public void modificarCliente() {
 		Consola.mostrarCabecera("Modificar cliente");
-		System.out.println("Inroduce los datos del cliente: ");
+		System.out.printf("Inroduce los datos del cliente: %n%n");
 		try {
-			Cliente cliente = Consola.leerCliente();
+			Cliente cliente = Consola.leerClienteDni();
 			String nombre = Consola.leerNombre();
 			String telefono = Consola.leerTelefono();
 			getControlador().modificarCliente(cliente, nombre, telefono);
@@ -182,11 +183,11 @@ public class VistaTexto extends Vista {
 
 	public void listarVehiculos() {
 		Consola.mostrarCabecera("Listado de vehíulos");
-		List<Vehiculo> listaClientes = getControlador().getVehiculos();
-		listaClientes.sort(Comparator.comparing(Vehiculo::getMarca).thenComparing(Vehiculo::getModelo)
+		List<Vehiculo> listaVehiculos = getControlador().getVehiculos();
+		listaVehiculos.sort(Comparator.comparing(Vehiculo::getMarca).thenComparing(Vehiculo::getModelo)
 				.thenComparing(Vehiculo::getMatricula));
 		StringBuilder listado = new StringBuilder();
-		for (Vehiculo vehículo : getControlador().getVehiculos()) {
+		for (Vehiculo vehículo : listaVehiculos) {
 			listado.append(vehículo).append(System.getProperty("line.separator"));
 		}
 		System.out.println(listado.isEmpty() ? "No existe ningún vehíulo." : listado);
@@ -242,7 +243,7 @@ public class VistaTexto extends Vista {
 		List<Alquiler> listaAlquileres = getControlador().getAlquileresVehiculo(vehiculoABuscar);
 		listaAlquileres.sort(Comparator.comparing(Alquiler::getFechaAlquiler).thenComparing(Alquiler::getVehiculo,
 				comparadorVehiculo));
-		for (Alquiler alquiler : getControlador().getAlquileresVehiculo(vehiculoABuscar)) {
+		for (Alquiler alquiler : listaAlquileres) {
 			listado.append(alquiler).append(System.getProperty("line.separator"));
 		}
 		if (vehiculoABuscar != null) {
@@ -252,11 +253,16 @@ public class VistaTexto extends Vista {
 
 	public void mostrarEstadisticaMensualesTipoVehiculo() {
 		Map<TipoVehiculo, Integer> mapa = inicializaEstadisticas();
-		for (Map.Entry<TipoVehiculo, Integer> entrada : mapa.entrySet()) {
-			TipoVehiculo llave = entrada.getKey();
-			Integer numero = entrada.getValue();
-			System.out.printf("%s --> %d%n", llave, numero);
+		if (mapa == null) {
+			System.out.println("ERROR: No es posible mostrar las estadisticas, la fecha no es válida.");
+		} else {
+			for (Map.Entry<TipoVehiculo, Integer> entrada : mapa.entrySet()) {
+				TipoVehiculo llave = entrada.getKey();
+				Integer numero = entrada.getValue();
+				System.out.printf("%s --> %d%n", llave, numero);
+			}
 		}
+
 	}
 
 	private Map<TipoVehiculo, Integer> inicializaEstadisticas() {
@@ -264,16 +270,23 @@ public class VistaTexto extends Vista {
 		mapaEstadisticas.put(TipoVehiculo.TURISMO, 0);
 		mapaEstadisticas.put(TipoVehiculo.FURGONETA, 0);
 		mapaEstadisticas.put(TipoVehiculo.AUTOBUS, 0);
-		for (Alquiler alquiler : getControlador().getAlquileres()) {
-			if (alquiler.getVehiculo() instanceof Turismo) {
-				mapaEstadisticas.put(TipoVehiculo.TURISMO, mapaEstadisticas.get(TipoVehiculo.TURISMO) + 1);
+		try {
+			Month mes = Consola.leerMes().getMonth();
+			for (Alquiler alquiler : getControlador().getAlquileres()) {
+				if (alquiler.getFechaAlquiler().getMonth().equals(mes)) {
+					if (alquiler.getVehiculo() instanceof Turismo) {
+						mapaEstadisticas.put(TipoVehiculo.TURISMO, mapaEstadisticas.get(TipoVehiculo.TURISMO) + 1);
+					}
+					if (alquiler.getVehiculo() instanceof Autobus) {
+						mapaEstadisticas.put(TipoVehiculo.AUTOBUS, mapaEstadisticas.get(TipoVehiculo.AUTOBUS) + 1);
+					}
+					if (alquiler.getVehiculo() instanceof Furgoneta) {
+						mapaEstadisticas.put(TipoVehiculo.FURGONETA, mapaEstadisticas.get(TipoVehiculo.FURGONETA) + 1);
+					}
+				}
 			}
-			if (alquiler.getVehiculo() instanceof Autobus) {
-				mapaEstadisticas.put(TipoVehiculo.AUTOBUS, mapaEstadisticas.get(TipoVehiculo.AUTOBUS) + 1);
-			}
-			if (alquiler.getVehiculo() instanceof Furgoneta) {
-				mapaEstadisticas.put(TipoVehiculo.FURGONETA, mapaEstadisticas.get(TipoVehiculo.FURGONETA) + 1);
-			}
+		} catch (IllegalArgumentException e) {
+			mapaEstadisticas = null;
 		}
 		return mapaEstadisticas;
 	}

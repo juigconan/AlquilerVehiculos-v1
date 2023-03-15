@@ -59,14 +59,14 @@ public enum Accion {
 		}
 	},
 
-	DEVOLVER_ALQUILER_CLIENTE("Devolver alquiler") {
+	DEVOLVER_ALQUILER_CLIENTE("Devolver alquiler por cliente") {
 		@Override
 		public void ejecutar() {
 			vista.devolverAlquilerCliente();
 		}
 	},
 
-	DEVOLVER_ALQUILER_VEHICULO("Devolver alquiler") {
+	DEVOLVER_ALQUILER_VEHICULO("Devolver alquiler por vehículo") {
 		@Override
 		public void ejecutar() {
 			vista.devolverAlquilerVehiculo();

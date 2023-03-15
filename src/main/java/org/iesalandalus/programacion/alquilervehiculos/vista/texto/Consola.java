@@ -137,7 +137,7 @@ public class Consola {
 	}
 
 	public static LocalDate leerMes() {
-		return leerFecha("el mes:");
+		return leerFecha("una fecha del mes que desea mostrar:");
 	}
 
 }
