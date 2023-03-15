@@ -6,16 +6,14 @@ import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Turismo;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Vehiculo;
 
 public enum TipoVehiculo {
-	TURISMO("Turismo"),
-	AUTOBUS("Autobus"),
-	FURGONETA("Furgoneta");
-	
+	TURISMO("Turismo"), AUTOBUS("Autobus"), FURGONETA("Furgoneta");
+
 	String nombre;
-	
+
 	private TipoVehiculo(String nombre) {
 		this.nombre = nombre;
 	}
-	
+
 	private static boolean esOrdinalValido(int ordinal) {
 		return (ordinal >= 0 && ordinal < Accion.values().length);
 	}
@@ -26,19 +24,19 @@ public enum TipoVehiculo {
 		}
 		return TipoVehiculo.values()[ordinal];
 	}
-	
+
 	public static TipoVehiculo get(Vehiculo vehiculo) {
-		if(vehiculo == null) {
+		if (vehiculo == null) {
 			throw new NullPointerException("ERROR: El vehiculo no puede ser nulo.");
 		}
 		int ordinal = -1;
-		if(vehiculo instanceof Turismo) {
+		if (vehiculo instanceof Turismo) {
 			ordinal = 0;
 		}
-		if(vehiculo instanceof Autobus){
+		if (vehiculo instanceof Autobus) {
 			ordinal = 1;
 		}
-		if(vehiculo instanceof Furgoneta){
+		if (vehiculo instanceof Furgoneta) {
 			ordinal = 2;
 		}
 		return get(ordinal);
@@ -46,7 +44,7 @@ public enum TipoVehiculo {
 
 	@Override
 	public String toString() {
-		return String.format("%d.- %s", ordinal(), nombre);
+		return String.format("%d.- %s", ordinal() + 1, nombre);
 	}
 
 }

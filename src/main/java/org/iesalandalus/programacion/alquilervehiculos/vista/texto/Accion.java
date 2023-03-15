@@ -1,9 +1,5 @@
 package org.iesalandalus.programacion.alquilervehiculos.vista.texto;
 
-import javax.naming.OperationNotSupportedException;
-
-import org.iesalandalus.programacion.alquilervehiculos.vista.Vista;
-
 public enum Accion {
 
 	SALIR("Salir") {
@@ -12,7 +8,7 @@ public enum Accion {
 			vista.terminar();
 		}
 	},
-	
+
 	INSERTAR_CLIENTE("Insertar cliente") {
 		@Override
 		public void ejecutar() {
@@ -20,129 +16,139 @@ public enum Accion {
 
 		}
 	},
-	
+
 	INSERTAR_VEHICULO("Insertar vehículo") {
 		@Override
 		public void ejecutar() {
 			vista.insertarVehiculo();
 		}
 	},
-	
+
 	INSERTAR_ALQUILER("Insertar alquiler") {
 		@Override
 		public void ejecutar() {
 			vista.insertarAlquiler();
 		}
 	},
-	
+
 	BUSCAR_CLIENTE("Buscar cliente") {
 		@Override
 		public void ejecutar() {
 			vista.buscarCliente();
 		}
 	},
-	
+
 	BUSCAR_VEHICULO("Buscar vehículo") {
 		@Override
 		public void ejecutar() {
 			vista.buscarVehiculo();
 		}
 	},
-	
+
 	BUSCAR_ALQUILER("Buscar alquiler") {
 		@Override
 		public void ejecutar() {
 			vista.buscarAlquiler();
 		}
 	},
-	
+
 	MODIFICAR_CLIENTE("Modificar cliente") {
 		@Override
 		public void ejecutar() {
 			vista.modificarCliente();
 		}
 	},
-	
+
 	DEVOLVER_ALQUILER_CLIENTE("Devolver alquiler") {
 		@Override
 		public void ejecutar() {
 			vista.devolverAlquilerCliente();
 		}
 	},
-	
+
 	DEVOLVER_ALQUILER_VEHICULO("Devolver alquiler") {
 		@Override
 		public void ejecutar() {
 			vista.devolverAlquilerVehiculo();
 		}
 	},
-	
+
 	BORRAR_CLIENTE("Borrar cliente") {
 		@Override
 		public void ejecutar() {
 			vista.borrarCliente();
 		}
 	},
-	
+
 	BORRAR_VEHICULO("Borrar vehículo") {
 		@Override
 		public void ejecutar() {
 			vista.borrarVehiculo();
 		}
 	},
-	
+
 	BORRAR_ALQUILER("Borrar alquiler") {
 		@Override
 		public void ejecutar() {
 			vista.borrarAlquiler();
 		}
 	},
-	
+
 	LISTAR_CLIENTES("Listar clientes") {
 		@Override
 		public void ejecutar() {
 			vista.listarClientes();
 		}
 	},
-	
+
 	LISTAR_VEHICULOS("Listar vehículos") {
 		@Override
 		public void ejecutar() {
 			vista.listarVehiculos();
 		}
 	},
-	
+
 	LISTAR_ALQUILERES("Listar alquileres") {
 		@Override
 		public void ejecutar() {
 			vista.listarAlquileres();
 		}
 	},
-	
+
 	LISTAR_ALQUILERES_CLIENTE("Listar alquileres de cliente") {
 		@Override
 		public void ejecutar() {
 			vista.listarAlquileresCliente();
 		}
 	},
-	
+
 	LISTAR_ALQUILERES_VEHICULO("Listar alquileres del vehículo") {
 		@Override
 		public void ejecutar() {
 			vista.listarAlquileresVehiculo();
 		}
+	},
+
+	MOSTRAR_ESTADISTICAS_MENSUALES("Mostrar estadisticas mensuales") {
+
+		@Override
+		public void ejecutar() {
+			vista.mostrarEstadisticaMensualesTipoVehiculo();
+
+		}
+
 	};
 
 	private String texto;
 
-	private static Vista vista;
+	private static VistaTexto vista;
 
 	private Accion(String texto) {
 		this.texto = texto;
 	}
 
-	private static setVista(VistaTexto vista) {
-		this.vista = vista;
+	protected static void setVista(VistaTexto vista) {
+		Accion.vista = vista;
 	}
 
 	public abstract void ejecutar();

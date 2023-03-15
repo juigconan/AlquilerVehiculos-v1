@@ -14,7 +14,7 @@ import org.iesalandalus.programacion.utilidades.Entrada;
 public class Consola {
 
 	private static final String PATRON_FECHA = "dd/MM/yyyy";
-	private static final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	private static final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern(PATRON_FECHA);
 
 	private Consola() {
 
@@ -95,29 +95,30 @@ public class Consola {
 	}
 
 	private static void mostrarMenuTiposVehiculos() {
-		mostrarCabecera("Tipos de vehículo");
+		mostrarCabecera("Tipos de vehículo:");
 		for (TipoVehiculo tipoVehiculo : TipoVehiculo.values()) {
 			System.out.printf("%s%n", tipoVehiculo);
 		}
 	}
-	
+
 	private static TipoVehiculo elegirTipoVehiculo() {
-		return TipoVehiculo.get(leerEntero("el tipo de vehículo"));
+		return TipoVehiculo.get(leerEntero("el tipo de vehículo:") - 1);
 	}
-	
+
 	private static Vehiculo leerVehiculo(TipoVehiculo tipoVehiculo) {
 		Vehiculo vehiculoADevolver = null;
 		String marca = leerCadena("la marca:");
 		String modelo = leerCadena("el modelo:");
-		String matricula = leerCadena("la matricula");
-		if(tipoVehiculo == TipoVehiculo.TURISMO) {
-			vehiculoADevolver = new Turismo(marca, modelo, leerEntero("la cilidrada:"),matricula);
+		String matricula = leerCadena("la matricula:");
+		if (tipoVehiculo == TipoVehiculo.TURISMO) {
+			vehiculoADevolver = new Turismo(marca, modelo, leerEntero("la cilidrada:"), matricula);
 		}
-		if(tipoVehiculo == TipoVehiculo.AUTOBUS) {
+		if (tipoVehiculo == TipoVehiculo.AUTOBUS) {
 			vehiculoADevolver = new Autobus(marca, modelo, leerEntero("las plazas:"), matricula);
 		}
-		if(tipoVehiculo == TipoVehiculo.FURGONETA) {
-			vehiculoADevolver = new Furgoneta(marca, modelo, leerEntero("el PMA:"), leerEntero("las plazas:"), matricula);
+		if (tipoVehiculo == TipoVehiculo.FURGONETA) {
+			vehiculoADevolver = new Furgoneta(marca, modelo, leerEntero("el PMA:"), leerEntero("las plazas:"),
+					matricula);
 		}
 		return vehiculoADevolver;
 	}
@@ -133,6 +134,10 @@ public class Consola {
 
 	public static LocalDate leerFechaDevolucion() {
 		return leerFecha("la fecha de devolución:");
+	}
+
+	public static LocalDate leerMes() {
+		return leerFecha("el mes:");
 	}
 
 }

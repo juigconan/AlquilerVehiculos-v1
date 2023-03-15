@@ -8,9 +8,7 @@ import javax.naming.OperationNotSupportedException;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.Modelo;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Alquiler;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Cliente;
-import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Turismo;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Vehiculo;
-import org.iesalandalus.programacion.alquilervehiculos.modelo.negocio.memoria.Alquileres;
 import org.iesalandalus.programacion.alquilervehiculos.vista.Vista;
 
 public class Controlador {
@@ -46,8 +44,8 @@ public class Controlador {
 		modelo.insertar(cliente);
 	}
 
-	public void insertarTurismo(Turismo turismo) throws OperationNotSupportedException {
-		modelo.insertar(turismo);
+	public void insertarVehiculo(Vehiculo vehiculo) throws OperationNotSupportedException {
+		modelo.insertar(vehiculo);
 	}
 
 	public void insertarAlquiler(Alquiler alquiler) throws OperationNotSupportedException {
@@ -59,8 +57,8 @@ public class Controlador {
 
 	}
 
-	public Vehiculo buscar(Vehiculo turismo) {
-		return modelo.buscar(turismo);
+	public Vehiculo buscar(Vehiculo vehiculo) {
+		return modelo.buscar(vehiculo);
 
 	}
 
@@ -89,8 +87,8 @@ public class Controlador {
 		modelo.borrar(cliente);
 	}
 
-	public void borrarTurismo(Vehiculo turismo) throws OperationNotSupportedException {
-		modelo.borrar(turismo);
+	public void borrarVehiculo(Vehiculo vehiculo) throws OperationNotSupportedException {
+		modelo.borrar(vehiculo);
 	}
 
 	public void borrarAlquiler(Alquiler alquiler) throws OperationNotSupportedException {
@@ -101,7 +99,7 @@ public class Controlador {
 		return modelo.getListaClientes();
 	}
 
-	public List<Vehiculo> getTurismos() {
+	public List<Vehiculo> getVehiculos() {
 		return modelo.getListaVehiculos();
 	}
 
@@ -113,7 +111,7 @@ public class Controlador {
 		return modelo.getListaAlquileres(cliente);
 	}
 
-	public List<Alquiler> getAlquileresTurismo(Vehiculo turismo) {
+	public List<Alquiler> getAlquileresVehiculo(Vehiculo turismo) {
 		return modelo.getListaAlquileres(turismo);
 	}
 

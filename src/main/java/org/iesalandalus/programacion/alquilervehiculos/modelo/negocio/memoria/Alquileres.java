@@ -52,7 +52,7 @@ public class Alquileres implements IAlquileres {
 		return coleccionAlquileres.size();
 	}
 
-	private void comprobarAlquiler(Cliente cliente, Vehiculo turismo, LocalDate fechaAlquiler)
+	private void comprobarAlquiler(Cliente cliente, Vehiculo vehiculo, LocalDate fechaAlquiler)
 			throws OperationNotSupportedException {
 		for (Alquiler alquiler : coleccionAlquileres) {
 			LocalDate fechaDevolucion = alquiler.getFechaDevolucion();
@@ -62,7 +62,7 @@ public class Alquileres implements IAlquileres {
 				if (esteCliente.equals(cliente)) {
 					throw new OperationNotSupportedException("ERROR: El cliente tiene otro alquiler sin devolver.");
 				}
-				if (esteVehiculo.equals(turismo)) {
+				if (esteVehiculo.equals(vehiculo)) {
 					throw new OperationNotSupportedException("ERROR: El turismo está actualmente alquilado.");
 				}
 				// Si la fecha de devolución no es anterior, asi nos ahorramos una comprobación
@@ -70,7 +70,7 @@ public class Alquileres implements IAlquileres {
 				if (esteCliente.equals(cliente)) {
 					throw new OperationNotSupportedException("ERROR: El cliente tiene un alquiler posterior.");
 				}
-				if (esteVehiculo.equals(turismo)) {
+				if (esteVehiculo.equals(vehiculo)) {
 					throw new OperationNotSupportedException("ERROR: El turismo tiene un alquiler posterior.");
 				}
 			}
@@ -89,7 +89,7 @@ public class Alquileres implements IAlquileres {
 			throw new OperationNotSupportedException("ERROR: No existe ningún alquiler abierto para ese cliente.");
 		}
 
-		coleccionAlquileres.get(coleccionAlquileres.indexOf(alquiler)).devolver(fechaDevolucion);
+		buscar(alquiler).devolver(fechaDevolucion);
 	}
 
 	private Alquiler getAlquilerAbierto(Cliente cliente) {
@@ -113,7 +113,7 @@ public class Alquileres implements IAlquileres {
 		if (alquiler == null) {
 			throw new OperationNotSupportedException("ERROR: No existe ningún alquiler abierto para ese vehículo.");
 		}
-		coleccionAlquileres.get(coleccionAlquileres.indexOf(alquiler)).devolver(fechaDevolucion);
+		buscar(alquiler).devolver(fechaDevolucion);
 	}
 
 	private Alquiler getAlquilerAbierto(Vehiculo vehiculo) {

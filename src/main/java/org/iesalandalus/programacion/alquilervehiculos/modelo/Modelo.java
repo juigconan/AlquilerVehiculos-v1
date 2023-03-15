@@ -19,19 +19,19 @@ public abstract class Modelo {
 	private IAlquileres alquileres;
 	private IVehiculos vehiculos;
 	private IFuenteDatos fuenteDatos;
-	
+
 	protected IClientes getClientes() {
 		return clientes;
 	}
-	
+
 	protected IVehiculos getVehiculos() {
 		return vehiculos;
 	}
-	
+
 	protected IAlquileres getAlquileres() {
 		return alquileres;
 	}
-	
+
 	protected void setFuenteDatos(IFuenteDatos fuenteDatos) {
 		this.fuenteDatos = fuenteDatos;
 	}
@@ -47,7 +47,7 @@ public abstract class Modelo {
 	}
 
 	public abstract void insertar(Cliente cliente) throws OperationNotSupportedException;
-	
+
 	public abstract void insertar(Vehiculo vehiculo) throws OperationNotSupportedException;
 
 	public abstract void insertar(Alquiler alquiler) throws OperationNotSupportedException;
@@ -58,10 +58,11 @@ public abstract class Modelo {
 
 	public abstract Vehiculo buscar(Vehiculo vehiculo);
 
-	public abstract void modificar(Cliente cliente, String nombre, String telefono) throws OperationNotSupportedException;
+	public abstract void modificar(Cliente cliente, String nombre, String telefono)
+			throws OperationNotSupportedException;
 
 	public abstract void devolver(Cliente cliente, LocalDate fechaDevolucion) throws OperationNotSupportedException;
-	
+
 	public abstract void devolver(Vehiculo vehiculo, LocalDate fechaDevolucion) throws OperationNotSupportedException;
 
 	public abstract void borrar(Cliente cliente) throws OperationNotSupportedException;

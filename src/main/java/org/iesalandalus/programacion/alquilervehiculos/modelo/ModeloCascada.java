@@ -72,27 +72,11 @@ public class ModeloCascada extends Modelo {
 
 	@Override
 	public void devolver(Cliente cliente, LocalDate fechaDevolucion) throws OperationNotSupportedException {
-//		if (getAlquileres(). == null) {
-//			throw new NullPointerException("ERROR: No se puede devolver un alquiler nulo.");
-//		}
-//		Alquiler alquilerADevolver = getAlquileres().buscar(alquiler);
-//		if (alquilerADevolver == null) {
-//			throw new OperationNotSupportedException("ERROR: No existe el alquiler a devolver.");
-//		}
-//		alquilerADevolver.devolver(fechaDevolucion);
 		getAlquileres().devolver(cliente, fechaDevolucion);
 	}
 
 	@Override
 	public void devolver(Vehiculo vehiculo, LocalDate fechaDevolucion) throws OperationNotSupportedException {
-//		if (alquiler == null) {
-//			throw new NullPointerException("ERROR: No se puede devolver un alquiler nulo.");
-//		}
-//		Alquiler alquilerADevolver = getAlquileres().buscar(alquiler);
-//		if (alquilerADevolver == null) {
-//			throw new OperationNotSupportedException("ERROR: No existe el alquiler a devolver.");
-//		}
-//		alquilerADevolver.devolver(fechaDevolucion);
 		getAlquileres().devolver(vehiculo, fechaDevolucion);
 	}
 

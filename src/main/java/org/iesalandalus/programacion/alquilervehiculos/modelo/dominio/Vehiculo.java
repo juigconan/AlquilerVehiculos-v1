@@ -15,25 +15,25 @@ public abstract class Vehiculo {
 		setModelo(modelo);
 		setMatricula(matricula);
 	}
-	
+
 	protected Vehiculo(Vehiculo vehiculo) {
-		if(vehiculo == null) {
+		if (vehiculo == null) {
 			throw new NullPointerException("ERROR: No es posible copiar un vehículo nulo.");
 		}
 		marca = vehiculo.getMarca();
 		modelo = vehiculo.getModelo();
 		matricula = vehiculo.getMatricula();
 	}
-	
-	public static Vehiculo copiar (Vehiculo vehiculo) {
+
+	public static Vehiculo copiar(Vehiculo vehiculo) {
 		Vehiculo vehiculoADevolver = null;
-		if(vehiculo instanceof Turismo turismo) {
+		if (vehiculo instanceof Turismo turismo) {
 			vehiculoADevolver = new Turismo(turismo);
 		}
-		if(vehiculo instanceof Furgoneta furgoneta) {
+		if (vehiculo instanceof Furgoneta furgoneta) {
 			vehiculoADevolver = new Furgoneta(furgoneta);
 		}
-		if(vehiculo instanceof Autobus autobus) {
+		if (vehiculo instanceof Autobus autobus) {
 			vehiculoADevolver = new Autobus(autobus);
 		}
 		return vehiculoADevolver;
