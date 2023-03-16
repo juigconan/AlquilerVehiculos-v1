@@ -2,6 +2,7 @@ package org.iesalandalus.programacion.alquilervehiculos.vista.texto;
 
 import java.time.LocalDate;
 import java.util.Comparator;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -275,7 +276,7 @@ public class VistaTexto extends Vista {
 	}
 
 	private Map<TipoVehiculo, Integer> inicializaEstadisticas() {
-		Map<TipoVehiculo, Integer> mapaEstadisticas = new TreeMap<>();
+		Map<TipoVehiculo,Integer> mapaEstadisticas = new EnumMap<>(TipoVehiculo.class);
 		for (int i = 0; i < TipoVehiculo.values().length; i++) {
 			mapaEstadisticas.put(TipoVehiculo.get(i), 0);
 		}
