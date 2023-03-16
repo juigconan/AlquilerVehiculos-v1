@@ -31,13 +31,13 @@ public enum TipoVehiculo {
 		}
 		int ordinal = -1;
 		if (vehiculo instanceof Turismo) {
-			ordinal = 0;
+			ordinal = TipoVehiculo.TURISMO.ordinal();
 		}
 		if (vehiculo instanceof Autobus) {
-			ordinal = 1;
+			ordinal = TipoVehiculo.AUTOBUS.ordinal();
 		}
 		if (vehiculo instanceof Furgoneta) {
-			ordinal = 2;
+			ordinal = TipoVehiculo.FURGONETA.ordinal();
 		}
 		return get(ordinal);
 	}
