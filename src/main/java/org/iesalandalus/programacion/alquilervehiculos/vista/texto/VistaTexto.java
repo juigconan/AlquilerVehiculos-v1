@@ -1,6 +1,6 @@
 package org.iesalandalus.programacion.alquilervehiculos.vista.texto;
 
-import java.time.Month;
+import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -9,10 +9,7 @@ import java.util.TreeMap;
 import javax.naming.OperationNotSupportedException;
 
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Alquiler;
-import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Autobus;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Cliente;
-import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Furgoneta;
-import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Turismo;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Vehiculo;
 import org.iesalandalus.programacion.alquilervehiculos.vista.Vista;
 
@@ -252,14 +249,26 @@ public class VistaTexto extends Vista {
 	}
 
 	public void mostrarEstadisticaMensualesTipoVehiculo() {
-		Map<TipoVehiculo, Integer> mapa = inicializaEstadisticas();
-		if (mapa == null) {
+		Map<TipoVehiculo, Integer> mapaEstadisticas = inicializaEstadisticas();
+		try {
+			LocalDate fecha = Consola.leerMes();
+			for (Alquiler alquiler : getControlador().getAlquileres()) {
+				if (alquiler.getFechaAlquiler().getMonth().equals(fecha.getMonth())
+						&& alquiler.getFechaAlquiler().getYear() == fecha.getYear()) {
+					mapaEstadisticas.put(TipoVehiculo.get(alquiler.getVehiculo()), mapaEstadisticas.get(TipoVehiculo.get(alquiler.getVehiculo())) + 1);
+				}
+			}
+		} catch (IllegalArgumentException e) {
+			mapaEstadisticas = null;
+		}
+
+		if (mapaEstadisticas == null) {
 			System.out.println("ERROR: No es posible mostrar las estadisticas, la fecha no es válida.");
 		} else {
-			for (Map.Entry<TipoVehiculo, Integer> entrada : mapa.entrySet()) {
-				TipoVehiculo llave = entrada.getKey();
+			for (Map.Entry<TipoVehiculo, Integer> entrada : mapaEstadisticas.entrySet()) {
+				TipoVehiculo tipo = entrada.getKey();
 				Integer numero = entrada.getValue();
-				System.out.printf("%s --> %d%n", llave, numero);
+				System.out.printf("%s --> %d%n", tipo, numero);
 			}
 		}
 
@@ -267,26 +276,8 @@ public class VistaTexto extends Vista {
 
 	private Map<TipoVehiculo, Integer> inicializaEstadisticas() {
 		Map<TipoVehiculo, Integer> mapaEstadisticas = new TreeMap<>();
-		mapaEstadisticas.put(TipoVehiculo.TURISMO, 0);
-		mapaEstadisticas.put(TipoVehiculo.FURGONETA, 0);
-		mapaEstadisticas.put(TipoVehiculo.AUTOBUS, 0);
-		try {
-			Month mes = Consola.leerMes().getMonth();
-			for (Alquiler alquiler : getControlador().getAlquileres()) {
-				if (alquiler.getFechaAlquiler().getMonth().equals(mes)) {
-					if (alquiler.getVehiculo() instanceof Turismo) {
-						mapaEstadisticas.put(TipoVehiculo.TURISMO, mapaEstadisticas.get(TipoVehiculo.TURISMO) + 1);
-					}
-					if (alquiler.getVehiculo() instanceof Autobus) {
-						mapaEstadisticas.put(TipoVehiculo.AUTOBUS, mapaEstadisticas.get(TipoVehiculo.AUTOBUS) + 1);
-					}
-					if (alquiler.getVehiculo() instanceof Furgoneta) {
-						mapaEstadisticas.put(TipoVehiculo.FURGONETA, mapaEstadisticas.get(TipoVehiculo.FURGONETA) + 1);
-					}
-				}
-			}
-		} catch (IllegalArgumentException e) {
-			mapaEstadisticas = null;
+		for (int i = 0; i < TipoVehiculo.values().length; i++) {
+			mapaEstadisticas.put(TipoVehiculo.get(i), 0);
 		}
 		return mapaEstadisticas;
 	}

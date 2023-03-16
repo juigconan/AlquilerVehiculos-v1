@@ -14,6 +14,7 @@ import org.iesalandalus.programacion.utilidades.Entrada;
 public class Consola {
 
 	private static final String PATRON_FECHA = "dd/MM/yyyy";
+	private static final String PATRON_MES = "MM/yyyy";
 	private static final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern(PATRON_FECHA);
 
 	private Consola() {
@@ -48,11 +49,15 @@ public class Consola {
 		return Entrada.entero();
 	}
 
-	private static LocalDate leerFecha(String mensaje) {
-		System.out.printf("Introduce %s (%s)", mensaje, PATRON_FECHA);
+	private static LocalDate leerFecha(String mensaje, String patron) {
+		System.out.printf("Introduce %s (%s):", mensaje, patron);
 		LocalDate fecha = null;
 		try {
-			fecha = LocalDate.parse(Entrada.cadena(), FORMATO_FECHA);
+			if (patron.equals(PATRON_FECHA) ) {
+				fecha = LocalDate.parse(Entrada.cadena(), FORMATO_FECHA);
+			}else if(patron.equals(PATRON_MES)){
+				fecha = LocalDate.parse("01/" + Entrada.cadena(),FORMATO_FECHA);
+			}
 		} catch (Exception e) {
 			throw new IllegalArgumentException("ERROR: La fecha introducida no es válida.");
 		}
@@ -129,15 +134,16 @@ public class Consola {
 	}
 
 	public static Alquiler leerAlquiler() {
-		return new Alquiler(leerClienteDni(), leerVehiculoMatricula(), leerFecha("la fecha del alquiler:"));
+		return new Alquiler(leerClienteDni(), leerVehiculoMatricula(), leerFecha("la fecha del alquiler",PATRON_FECHA));
 	}
 
 	public static LocalDate leerFechaDevolucion() {
-		return leerFecha("la fecha de devolución:");
+		return leerFecha("la fecha de devolución",PATRON_FECHA);
 	}
 
 	public static LocalDate leerMes() {
-		return leerFecha("una fecha del mes que desea mostrar:");
+		return leerFecha("el mes que desea mostrar",PATRON_MES);
+		
 	}
 
 }
