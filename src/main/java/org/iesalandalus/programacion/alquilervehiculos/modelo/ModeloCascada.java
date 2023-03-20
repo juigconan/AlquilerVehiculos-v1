@@ -115,15 +115,8 @@ public class ModeloCascada extends Modelo {
 
 		List<Vehiculo> listaADevolver = new ArrayList<>();
 		for (Vehiculo vehiculo : getVehiculos().get()) {
-			if (vehiculo instanceof Turismo turismo) {
-				listaADevolver.add(new Turismo(turismo));
-			}
-			if (vehiculo instanceof Autobus autobus) {
-				listaADevolver.add(new Autobus(autobus));
-			}
-			if (vehiculo instanceof Furgoneta furgoneta) {
-				listaADevolver.add(new Furgoneta(furgoneta));
-			}
+			listaADevolver.add(Vehiculo.copiar(vehiculo));
+
 		}
 		return listaADevolver;
 	}
